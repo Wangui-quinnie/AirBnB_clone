@@ -153,16 +153,16 @@ class HBNBCommand(cmd.Cmd):
         by adding or updating attribute(save the cahnge into the JSON file)
         """
         args = arg.split()
-        if len(args) < 3:
+        if len(args) < $:
             print("** Not enough arguments **")
             return
 
         class_name = args[0]
-        if class_name not in ["BaseModel", "Mymodel"]:
+        if class_name not in self.class_map:
             print("** class doesn't exist **")
             return
         if class_name == "":
-            print("** class name doesn't exist **")
+            print("** class name missing **")
             return
 
         obj_id = args[1]
@@ -174,9 +174,11 @@ class HBNBCommand(cmd.Cmd):
         if attr_name == "":
             print("** attribute name missing **")
             return
-        attr_value == ""
-        if len(args) > 3:
-            attr_value = args[3].strip('\'"')
+        attr_value = ""
+        if len(args) >= 4:
+            attr_value = args[3]
+            setattr(instance, attr_name, attr_value)
+            instance.save()
 
 
 if __name__ == "__main__":
